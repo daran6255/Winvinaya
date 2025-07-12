@@ -1,0 +1,160 @@
+{
+    "info": {
+        "_postman_id": "2f8f5bb3-f5c7-45ef-89f0-c31875891442",
+        "name": "Candidate Interview Status API",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Create Interview Status",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer <your_jwt_token>",
+                        "type": "text"
+                    },
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"mapping_id\": \"<mapping_id>\",\n    \"round_name\": \"Technical\",\n    \"round_number\": \"1\",\n    \"interview_status\": \"Scheduled\",\n    \"interview_date\": \"2025-07-10T15:00:00\",\n    \"interviewer_name\": \"Alice Smith\",\n    \"remarks\": \"Scheduled for tech round\"\n}"
+                },
+                "url": {
+                    "raw": "http://localhost:5000/api/v1/candidate-interview-status",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "5000",
+                    "path": [
+                        "api",
+                        "v1",
+                        "candidate-interview-status"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Get All Interview Statuses",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer <your_jwt_token>",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "http://localhost:5000/api/v1/candidate-interview-status",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "5000",
+                    "path": [
+                        "api",
+                        "v1",
+                        "candidate-interview-status"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Get Interview Status By ID",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer <your_jwt_token>",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "http://localhost:5000/api/v1/candidate-interview-status/<status_id>",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "5000",
+                    "path": [
+                        "api",
+                        "v1",
+                        "candidate-interview-status",
+                        "<status_id>"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Update Interview Status",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer <your_jwt_token>",
+                        "type": "text"
+                    },
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"round_name\": \"Technical Updated\",\n    \"round_number\": \"2\",\n    \"interview_status\": \"Attended\",\n    \"interview_date\": \"2025-07-12T10:30:00\",\n    \"interviewer_name\": \"Bob Johnson\",\n    \"remarks\": \"Candidate attended technical round.\"\n}"
+                },
+                "url": {
+                    "raw": "http://localhost:5000/api/v1/candidate-interview-status/<status_id>",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "5000",
+                    "path": [
+                        "api",
+                        "v1",
+                        "candidate-interview-status",
+                        "<status_id>"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Delete Interview Status",
+            "request": {
+                "method": "DELETE",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer <your_jwt_token>",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "http://localhost:5000/api/v1/candidate-interview-status/<status_id>",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "5000",
+                    "path": [
+                        "api",
+                        "v1",
+                        "candidate-interview-status",
+                        "<status_id>"
+                    ]
+                }
+            }
+        }
+    ]
+}

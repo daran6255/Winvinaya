@@ -1,0 +1,130 @@
+{
+  "info": {
+    "_postman_id": "6d40b715-2ff2-41e8-93a3-9ef9b4f777ff",
+    "name": "JobMela API Collection",
+    "description": "Postman collection for managing Job Melas in the WinVinaya platform. Includes endpoints for creating, listing, viewing, updating, and deleting Job Melas. All write operations require `admin` or `placement` roles. Authenticated users can fetch Job Melas. All endpoints require JWT-based authentication.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create JobMela",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"jobmela_name\": \"July Mega Job Mela\",\n    \"jobmela_date\": \"2025-07-15T10:00:00\",\n    \"jobmela_location\": \"Bangalore\",\n    \"jobmela_partner\": \"Company X\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/jobmelas",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "jobmelas"]
+        },
+        "description": "Creates a new Job Mela record.\n\n**Required fields:**\n- `jobmela_name` (string): Name of the job mela event.\n- `jobmela_date` (ISO string): Date and time of the job mela, e.g. `2025-07-15T10:00:00`.\n- `jobmela_location` (string): Venue or location of the event.\n- `jobmela_partner` (string): Partner organization for this job mela.\n\nRequires `admin` or `placement` role. Returns the ID of the created job mela."
+      }
+    },
+    {
+      "name": "Get All JobMelas",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/jobmelas",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "jobmelas"]
+        },
+        "description": "Retrieves a list of all job melas in the system.\n\nReturns an array of job mela records, each containing details like name, date, location, partner, created_by, and updated_by."
+      }
+    },
+    {
+      "name": "Get JobMela By ID",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/jobmelas/{{jobmela_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "jobmelas", "{{jobmela_id}}"]
+        },
+        "description": "Fetches a single job mela by its ID.\n\n**URL Parameter:**\n- `jobmela_id` (UUID): Unique identifier of the job mela.\n\nReturns detailed information about the job mela, including partner details and audit fields."
+      }
+    },
+    {
+      "name": "Update JobMela",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"jobmela_name\": \"Updated Job Mela Name\",\n    \"jobmela_date\": \"2025-08-01T09:00:00\",\n    \"jobmela_location\": \"Hyderabad\",\n    \"jobmela_partner\": \"Updated Partner\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/jobmelas/{{jobmela_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "jobmelas", "{{jobmela_id}}"]
+        },
+        "description": "Updates details of an existing job mela.\n\n**URL Parameter:**\n- `jobmela_id` (UUID): Unique identifier of the job mela to update.\n\nYou may provide any subset of the following fields in the body:\n- `jobmela_name`\n- `jobmela_date` (ISO string)\n- `jobmela_location`\n- `jobmela_partner`\n\nRequires `admin` or `placement` role."
+      }
+    },
+    {
+      "name": "Delete JobMela",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/jobmelas/{{jobmela_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "jobmelas", "{{jobmela_id}}"]
+        },
+        "description": "Deletes a job mela from the system.\n\n**URL Parameter:**\n- `jobmela_id` (UUID): ID of the job mela to delete.\n\nRequires `admin` or `placement` role. This action is irreversible."
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5000"
+    },
+    {
+      "key": "jwt_token",
+      "value": ""
+    },
+    {
+      "key": "jobmela_id",
+      "value": ""
+    }
+  ]
+}

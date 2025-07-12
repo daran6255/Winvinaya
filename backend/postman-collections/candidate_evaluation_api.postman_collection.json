@@ -1,0 +1,125 @@
+{
+  "info": {
+    "_postman_id": "fddaa168-bb0c-4ed1-b9ef-15f5a649f92d",
+    "name": "Candidate Evaluation API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Candidate Evaluation",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"candidate_profile_id\": \"{{candidate_profile_id}}\",\n    \"skills_with_level\": [\n        {\"skill\": \"Excel\", \"level\": \"Intermediate\"},\n        {\"skill\": \"Python\", \"level\": \"Beginner\"}\n    ],\n    \"suitable_training\": \"Advanced Excel\",\n    \"comments\": \"Good communication skills.\",\n    \"remarks\": \"Needs follow up.\",\n    \"status\": \"Under Review\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/v1/candidate-evaluations",
+          "host": ["localhost"],
+		  "port": "5000",
+          "path": ["api", "v1", "candidate-evaluations"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Candidate Evaluations",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:5000/api/v1/candidate-evaluations",
+          "host": ["localhost"],
+		  "port": "5000",
+          "path": ["api", "v1", "candidate-evaluations"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Candidate Evaluation by ID",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:5000/api/v1/candidate-evaluations/{{evaluation_id}}",
+          "host": ["localhost"],
+		  "port": "5000",
+          "path": ["api", "v1", "candidate-evaluations", "{{evaluation_id}}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Candidate Evaluation",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"skills_with_level\": [\n        {\"skill\": \"Excel\", \"level\": \"Advanced\"}\n    ],\n    \"suitable_training\": \"Power BI\",\n    \"comments\": \"Strong technical knowledge.\",\n    \"remarks\": \"Ready for deployment.\",\n    \"status\": \"Selected\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/v1/candidate-evaluations/{{evaluation_id}}",
+          "host": ["localhost"],
+		  "port": "5000",
+          "path": ["api", "v1", "candidate-evaluations", "{{evaluation_id}}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Candidate Evaluation",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:5000/api/v1/candidate-evaluations/{{evaluation_id}}",
+          "host": ["localhost"],
+		  "port": "5000",
+          "path": ["api", "v1", "candidate-evaluations", "{{evaluation_id}}"]
+        }
+      },
+      "response": []
+    }
+  ]
+}

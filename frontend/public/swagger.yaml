@@ -1,0 +1,538 @@
+openapi: 3.0.0
+info:
+  title: JobMela & Candidate Management API
+  description: API for managing Job Melas, Candidates, and serving files.
+  version: 1.0.0
+servers:
+  - url: http://127.0.0.1:5000
+
+paths:
+
+  # JobMela endpoints
+  /jobmela/add:
+    post:
+      summary: Create a new Job Mela
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JobMelaCreate'
+      responses:
+        '201':
+          description: Job Mela created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobMelaResponseSuccess'
+        '500':
+          description: Failed to create Job Mela
+
+  /jobmela/get_all:
+    get:
+      summary: Get all Job Melas
+      responses:
+        '200':
+          description: List of Job Melas
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  result:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/JobMela'
+        '500':
+          description: Failed to fetch Job Melas
+
+  /jobmela/get/{jobmela_id}:
+    get:
+      summary: Get a Job Mela by ID
+      parameters:
+        - name: jobmela_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Job Mela details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobMelaResponseSuccess'
+        '404':
+          description: Job Mela not found
+        '500':
+          description: Failed to fetch Job Mela
+
+  /jobmela/update/{jobmela_id}:
+    put:
+      summary: Update a Job Mela by ID
+      parameters:
+        - name: jobmela_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JobMelaUpdate'
+      responses:
+        '200':
+          description: Job Mela updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '404':
+          description: Job Mela not found
+        '500':
+          description: Failed to update Job Mela
+
+  /jobmela/delete/{jobmela_id}:
+    delete:
+      summary: Delete a Job Mela by ID
+      parameters:
+        - name: jobmela_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Job Mela deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '404':
+          description: Job Mela not found
+        '500':
+          description: Failed to delete Job Mela
+
+
+  # File serving endpoints
+  /files/resume/{filename}:
+    get:
+      summary: Serve resume PDF file
+      parameters:
+        - name: filename
+          in: path
+          required: true
+          schema:
+            type: string
+            description: Filename of the resume PDF
+      responses:
+        '200':
+          description: Resume PDF file served
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: File not found
+
+  /files/disability/{filename}:
+    get:
+      summary: Serve disability certificate PDF file
+      parameters:
+        - name: filename
+          in: path
+          required: true
+          schema:
+            type: string
+            description: Filename of the disability certificate PDF
+      responses:
+        '200':
+          description: Disability certificate PDF served
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: File not found
+
+
+  # Candidate endpoints
+  /candidates/add:
+    post:
+      summary: Add a new candidate
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                gender:
+                  type: string
+                email:
+                  type: string
+                  format: email
+                phone:
+                  type: string
+                guardian_name:
+                  type: string
+                guardian_phone:
+                  type: string
+                pincode:
+                  type: string
+                degree:
+                  type: string
+                branch:
+                  type: string
+                disability_type:
+                  type: string
+                disability_percentage:
+                  type: integer
+                trained_by_winvinaya:
+                  type: string
+                skills:
+                  type: string
+                  description: JSON stringified array of skills, e.g. '["skill1","skill2"]'
+                experience_type:
+                  type: string
+                years_of_experience:
+                  type: integer
+                current_status:
+                  type: string
+                previous_position:
+                  type: string
+                ready_to_relocate:
+                  type: string
+                resume:
+                  type: string
+                  format: binary
+                disability_certificate:
+                  type: string
+                  format: binary
+                jobmela_name:
+                  type: string
+              required:
+                - name
+                - gender
+                - email
+                - phone
+                - pincode
+                - degree
+                - branch
+                - disability_type
+                - disability_percentage
+                - trained_by_winvinaya
+                - skills
+                - experience_type
+                - current_status
+                - resume
+                - disability_certificate
+                - jobmela_name
+      responses:
+        '201':
+          description: Candidate registered
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: Invalid input or files not PDF
+        '500':
+          description: Failed to register candidate
+
+  /candidates/get_all:
+    get:
+      summary: Get all candidates
+      responses:
+        '200':
+          description: List of candidates
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  result:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Candidate'
+        '500':
+          description: Failed to fetch candidates
+
+  /candidates/get/{candidate_id}:
+    get:
+      summary: Get candidate by ID
+      parameters:
+        - name: candidate_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Candidate details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CandidateResponseSuccess'
+        '404':
+          description: Candidate not found
+        '500':
+          description: Failed to fetch candidate
+
+  /candidates/update/{candidate_id}:
+    put:
+      summary: Update a candidate by ID
+      parameters:
+        - name: candidate_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CandidateUpdatePayload'
+      responses:
+        '200':
+          description: Candidate updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '404':
+          description: Candidate not found
+        '500':
+          description: Update failed
+
+  /candidates/delete/{candidate_id}:
+    delete:
+      summary: Delete a candidate by ID
+      parameters:
+        - name: candidate_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Candidate deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '404':
+          description: Candidate not found
+        '500':
+          description: Deletion failed
+
+components:
+  schemas:
+    JobMela:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        jobmela_name:
+          type: string
+        jobmela_date:
+          type: string
+          format: date
+        jobmela_location:
+          type: string
+        jobmela_partner:
+          type: string
+      required:
+        - id
+        - jobmela_name
+        - jobmela_date
+        - jobmela_location
+        - jobmela_partner
+
+    JobMelaCreate:
+      type: object
+      properties:
+        jobmela_name:
+          type: string
+        jobmela_date:
+          type: string
+          format: date
+        jobmela_location:
+          type: string
+        jobmela_partner:
+          type: string
+      required:
+        - jobmela_name
+        - jobmela_date
+        - jobmela_location
+        - jobmela_partner
+
+    JobMelaUpdate:
+      type: object
+      properties:
+        jobmela_name:
+          type: string
+        jobmela_date:
+          type: string
+          format: date
+        jobmela_location:
+          type: string
+        jobmela_partner:
+          type: string
+
+    JobMelaResponseSuccess:
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+        result:
+          oneOf:
+            - $ref: '#/components/schemas/JobMela'
+            - type: string
+              example: Job Mela created
+
+    Candidate:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        gender:
+          type: string
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+        guardian_name:
+          type: string
+        guardian_phone:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        pincode:
+          type: string
+        degree:
+          type: string
+        branch:
+          type: string
+        disability_type:
+          type: string
+        disability_percentage:
+          type: integer
+        trained_by_winvinaya:
+          type: string
+        skills:
+          type: array
+          items:
+            type: string
+        experience_type:
+          type: string
+        years_of_experience:
+          type: integer
+          nullable: true
+        current_status:
+          type: string
+        previous_position:
+          type: string
+        ready_to_relocate:
+          type: string
+        resume_path:
+          type: string
+        disability_certificate_path:
+          type: string
+        jobmela_name:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+
+    CandidateResponseSuccess:
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+        result:
+          oneOf:
+            - $ref: '#/components/schemas/Candidate'
+            - type: string
+              example: Candidate added successfully
+
+    CandidateUpdatePayload:
+      type: object
+      properties:
+        name:
+          type: string
+        gender:
+          type: string
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+        guardian_name:
+          type: string
+        guardian_phone:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        pincode:
+          type: string
+        degree:
+          type: string
+        branch:
+          type: string
+        disability_type:
+          type: string
+        disability_percentage:
+          type: integer
+        trained_by_winvinaya:
+          type: string
+        skills:
+          type: array
+          items:
+            type: string
+        experience_type:
+          type: string
+        years_of_experience:
+          type: integer
+          nullable: true
+        current_status:
+          type: string
+        previous_position:
+          type: string
+        ready_to_relocate:
+          type: string
+        jobmela_name:
+          type: string
+
+    GenericResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+        result:
+          type: string

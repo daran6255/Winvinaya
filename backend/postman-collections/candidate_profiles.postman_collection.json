@@ -1,0 +1,166 @@
+{
+  "info": {
+    "name": "Candidate Profiles API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Candidate Profile",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"candidate_id\": \"{{candidate_id}}\",\n    \"trained_by_winvinaya\": \"Yes\",\n    \"training_domain\": \"Software Testing\",\n    \"training_from\": \"01/23\",\n    \"training_to\": \"04/23\",\n    \"employment_status\": \"Employed\",\n    \"company_name\": \"ABC Corp\",\n    \"position\": \"Test Engineer\",\n    \"current_ctc\": \"5 LPA\",\n    \"total_experience_years\": 2,\n    \"notice_period\": \"30 days\",\n    \"willing_for_training\": \"Yes\",\n    \"ready_to_relocate\": \"Yes\",\n    \"intrested_training\": \"Automation Testing\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/v1/candidate-profiles",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "candidate-profiles"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get All Candidate Profiles",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:5000/api/v1/candidate-profiles",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "candidate-profiles"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get Candidate Profile by ID",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:5000/api/v1/candidate-profiles/{{profile_id}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "candidate-profiles",
+            "{{profile_id}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Update Candidate Profile",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"employment_status\": \"Unemployed\",\n    \"company_name\": null,\n    \"position\": null,\n    \"current_ctc\": null,\n    \"total_experience_years\": 0,\n    \"notice_period\": null\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/v1/candidate-profiles/{{profile_id}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "candidate-profiles",
+            "{{profile_id}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Delete Candidate Profile",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:5000/api/v1/candidate-profiles/{{profile_id}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "candidate-profiles",
+            "{{profile_id}}"
+          ]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "token",
+      "value": ""
+    },
+    {
+      "key": "candidate_id",
+      "value": ""
+    },
+    {
+      "key": "profile_id",
+      "value": ""
+    }
+  ]
+}

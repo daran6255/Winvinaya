@@ -1,0 +1,258 @@
+{
+	"info": {
+		"_postman_id": "c9d68cfc-0ee2-4f1c-82fc-1c1e5af83a8b",
+		"name": "winvinaya",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16128290"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "auth/login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"info@winvinaya.com\",\r\n    \"password\": \"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/v1/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "auth/logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc1MTQzNjkwOCwianRpIjoiM2IxMjljYWQtYWFkZC00NzM2LWIwM2MtMmNlOWIyNDVmNWU1IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjgwNTM5MmU1LTJiNTItNDY2YS1iNTc2LWE4NzRhMDAzOWVmNiIsIm5iZiI6MTc1MTQzNjkwOCwiY3NyZiI6IjY0NGY0ZDQ1LWUxZTktNGRjYi04YzJiLTU1ZWYxMmNmM2Q1MiIsImV4cCI6MTc1MTQ2NTcwOH0.ZJwxP9XwCdAfaYG-B0nzMWtKJ_mzsxqJ-5SanDRHNvw",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/auth/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "auth/verify-token",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc1MTQzODk3MCwianRpIjoiYWQzNThjMWItMmQ1Ny00ODBhLWJiYzktYzZkMmZlZTUyNzFmIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjgwNTM5MmU1LTJiNTItNDY2YS1iNTc2LWE4NzRhMDAzOWVmNiIsIm5iZiI6MTc1MTQzODk3MCwiY3NyZiI6ImM3NzMwZmVhLTA5OWItNDI2ZC04MTlkLWEwMzk1NjBkN2ZmZSIsImV4cCI6MTc1MTQ2Nzc3MH0.aSTfgATDooB-XFn-BbExdGCxoJXYsTYbbQxEvM0-LuI",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/auth/verify-token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"verify-token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc1MTQzODk3MCwianRpIjoiYWQzNThjMWItMmQ1Ny00ODBhLWJiYzktYzZkMmZlZTUyNzFmIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjgwNTM5MmU1LTJiNTItNDY2YS1iNTc2LWE4NzRhMDAzOWVmNiIsIm5iZiI6MTc1MTQzODk3MCwiY3NyZiI6ImM3NzMwZmVhLTA5OWItNDI2ZC04MTlkLWEwMzk1NjBkN2ZmZSIsImV4cCI6MTc1MTQ2Nzc3MH0.aSTfgATDooB-XFn-BbExdGCxoJXYsTYbbQxEvM0-LuI",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"john_doe\",\r\n    \"email\": \"john@example.com\",\r\n    \"password\": \"MyStrongPassword123\",\r\n    \"role_name\": \"manager\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/v1/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list-all",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc1MTQzODk3MCwianRpIjoiYWQzNThjMWItMmQ1Ny00ODBhLWJiYzktYzZkMmZlZTUyNzFmIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjgwNTM5MmU1LTJiNTItNDY2YS1iNTc2LWE4NzRhMDAzOWVmNiIsIm5iZiI6MTc1MTQzODk3MCwiY3NyZiI6ImM3NzMwZmVhLTA5OWItNDI2ZC04MTlkLWEwMzk1NjBkN2ZmZSIsImV4cCI6MTc1MTQ2Nzc3MH0.aSTfgATDooB-XFn-BbExdGCxoJXYsTYbbQxEvM0-LuI",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/v1/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list-by-userID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc1MTQzODk3MCwianRpIjoiYWQzNThjMWItMmQ1Ny00ODBhLWJiYzktYzZkMmZlZTUyNzFmIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjgwNTM5MmU1LTJiNTItNDY2YS1iNTc2LWE4NzRhMDAzOWVmNiIsIm5iZiI6MTc1MTQzODk3MCwiY3NyZiI6ImM3NzMwZmVhLTA5OWItNDI2ZC04MTlkLWEwMzk1NjBkN2ZmZSIsImV4cCI6MTc1MTQ2Nzc3MH0.aSTfgATDooB-XFn-BbExdGCxoJXYsTYbbQxEvM0-LuI",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/v1/users/def6746e-1607-48d9-9d6a-1dda701a533b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"def6746e-1607-48d9-9d6a-1dda701a533b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-by-userID",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc1MTQzODk3MCwianRpIjoiYWQzNThjMWItMmQ1Ny00ODBhLWJiYzktYzZkMmZlZTUyNzFmIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjgwNTM5MmU1LTJiNTItNDY2YS1iNTc2LWE4NzRhMDAzOWVmNiIsIm5iZiI6MTc1MTQzODk3MCwiY3NyZiI6ImM3NzMwZmVhLTA5OWItNDI2ZC04MTlkLWEwMzk1NjBkN2ZmZSIsImV4cCI6MTc1MTQ2Nzc3MH0.aSTfgATDooB-XFn-BbExdGCxoJXYsTYbbQxEvM0-LuI",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"email\": \"john@company.com\",\r\n        \"id\": \"def6746e-1607-48d9-9d6a-1dda701a533b\",\r\n        \"is_active\": false,\r\n        \"role\": \"admin\",\r\n        \"username\": \"john_admin\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/v1/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,149 @@
+{
+  "info": {
+    "_postman_id": "c678baab-35fb-403a-9103-9f36ff6313de",
+    "name": "Post-Training Skill Analysis API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Post-Training Skill Analysis",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "candidate_id",
+              "value": "{{candidate_db_id}}",
+              "type": "text"
+            },
+            {
+              "key": "skills_with_level",
+              "value": "{\"Python\":\"Advanced\",\"SQL\":\"Intermediate\"}",
+              "type": "text"
+            },
+            {
+              "key": "remarks",
+              "value": "Performed well in training.",
+              "type": "text"
+            },
+            {
+              "key": "resume",
+              "type": "file",
+              "src": ""
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/v1/post-training-skills",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "v1", "post-training-skills"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Post-Training Skill Analyses",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:5000/api/v1/post-training-skills",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "v1", "post-training-skills"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Post-Training Skill Analysis by ID",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:5000/api/v1/post-training-skills/{{analysis_id}}",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "v1", "post-training-skills", "{{analysis_id}}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Post-Training Skill Analysis",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "skills_with_level",
+              "value": "{\"Python\":\"Expert\",\"SQL\":\"Advanced\"}",
+              "type": "text"
+            },
+            {
+              "key": "remarks",
+              "value": "Improved significantly after training.",
+              "type": "text"
+            },
+            {
+              "key": "resume",
+              "type": "file",
+              "src": ""
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/v1/post-training-skills/{{analysis_id}}",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "v1", "post-training-skills", "{{analysis_id}}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Post-Training Skill Analysis",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:5000/api/v1/post-training-skills/{{analysis_id}}",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "v1", "post-training-skills", "{{analysis_id}}"]
+        }
+      },
+      "response": []
+    }
+  ]
+}

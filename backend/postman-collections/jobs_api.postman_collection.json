@@ -1,0 +1,120 @@
+{
+  "info": {
+    "_postman_id": "873ed2aa-552c-4f43-b26a-59cb3344aaf8",
+    "name": "Jobs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Job",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"company_id\": \"{{company_id}}\",\n    \"job_role\": \"Software Developer\",\n    \"skills\": [\"Python\", \"Flask\"],\n    \"experience_level\": \"Intermediate\",\n    \"education_qualification\": [\"B.Tech\", \"M.Sc\"],\n    \"num_openings\": 3,\n    \"location\": \"Bangalore\",\n    \"disability_preferred\": \"Hearing Impairment\",\n    \"approx_salary\": 75000.0,\n    \"roles_and_responsibilities\": \"Develop REST APIs, write unit tests.\",\n    \"description\": \"This is a job description for a software developer.\",\n    \"job_status\": \"Open\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/v1/jobs",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "v1", "jobs"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Jobs",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:5000/api/v1/jobs",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "v1", "jobs"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Job by ID",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:5000/api/v1/jobs/{{job_id}}",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "v1", "jobs", "{{job_id}}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Job",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"job_role\": \"Senior Software Developer\",\n    \"skills\": [\"Python\", \"Flask\", \"PostgreSQL\"],\n    \"experience_level\": \"Advanced\",\n    \"education_qualification\": [\"B.Tech\", \"M.Tech\"],\n    \"num_openings\": 2,\n    \"location\": \"Hyderabad\",\n    \"approx_salary\": 90000.0,\n    \"roles_and_responsibilities\": \"Lead development teams, design scalable architecture.\",\n    \"description\": \"Updated description for the senior role.\",\n    \"job_status\": \"Open\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/v1/jobs/{{job_id}}",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "v1", "jobs", "{{job_id}}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Job",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:5000/api/v1/jobs/{{job_id}}",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "v1", "jobs", "{{job_id}}"]
+        }
+      },
+      "response": []
+    }
+  ]
+}

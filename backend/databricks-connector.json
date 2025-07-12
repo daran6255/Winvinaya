@@ -1,0 +1,67 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "DatabricksConnector",
+    "description": "Custom connector for Azure Databricks REST API.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://adb-1097535470953945.5.azuredatabricks.net/api/2.0"
+    }
+  ],
+  "paths": {
+    "/clusters/list": {
+      "get": {
+        "summary": "List Databricks Clusters",
+        "operationId": "ListClusters",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Cluster list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "clusters": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "cluster_id": {
+                            "type": "string"
+                          },
+                          "cluster_name": {
+                            "type": "string"
+                          },
+                          "state": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header"
+      }
+    }
+  },
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ]
+}

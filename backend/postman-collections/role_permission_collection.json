@@ -1,0 +1,293 @@
+{
+  "info": {
+    "_postman_id": "2cb8f62b-cf7d-4ef9-bb60-9cbe3e7cdde2",
+    "name": "Role & Permission Management API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "This Postman collection provides endpoints for managing roles, permissions, and the assignment of permissions to roles. All write operations require an Admin user. Each request contains detailed descriptions, sample payloads, and usage guidance to help developers understand and test these APIs efficiently."
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5000"
+    },
+    {
+      "key": "jwt_token",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Roles",
+      "description": "Manage user roles in the system, such as admin, placement, or trainer. Roles define the high-level grouping of permissions for users.",
+      "item": [
+        {
+          "name": "Create Role",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"admin\",\n  \"description\": \"Administrator role with full access to all APIs.\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/roles",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "roles"]
+            },
+            "description": "Creates a new role in the system. Only Admin users can create roles. Each role has a unique name and optional description.\n\n#### Example Request Body\n```\n{\n  \"name\": \"admin\",\n  \"description\": \"Administrator role with full access to all APIs.\"\n}\n```\n\n#### Success Response\n```\n{\n  \"status\": \"success\",\n  \"message\": \"Role created\",\n  \"role_id\": \"<uuid>\"\n}\n```"
+          }
+        },
+        {
+          "name": "Get All Roles",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/roles",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "roles"]
+            },
+            "description": "Retrieves a list of all roles currently defined in the system. Useful for managing role assignments and permissions."
+          }
+        },
+        {
+          "name": "Get Role by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/roles/{{role_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "roles", "{{role_id}}"]
+            },
+            "description": "Fetches details of a specific role using its unique ID. Provides role name, description, and creation timestamp."
+          }
+        },
+        {
+          "name": "Update Role",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"placement\",\n  \"description\": \"Updated description for placement role.\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/roles/{{role_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "roles", "{{role_id}}"]
+            },
+            "description": "Updates an existing role’s name or description. Only Admin users can update roles.\n\n#### Example Request Body\n```\n{\n  \"name\": \"placement\",\n  \"description\": \"Updated description for placement role.\"\n}\n```"
+          }
+        },
+        {
+          "name": "Delete Role",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/roles/{{role_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "roles", "{{role_id}}"]
+            },
+            "description": "Deletes a role from the system. Only Admin users can delete roles. Note that deleting a role may also affect any users assigned to it."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Permissions",
+      "description": "Manage fine-grained permissions, representing specific actions users are allowed to perform, such as creating jobs, managing users, or viewing reports.",
+      "item": [
+        {
+          "name": "Create Permission",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"manage_users\",\n  \"description\": \"Allows creating, updating, and deleting users.\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/permissions",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "permissions"]
+            },
+            "description": "Creates a new permission in the system. Only Admin users can create permissions. Each permission should have a unique name and a descriptive purpose.\n\n#### Example Request Body\n```\n{\n  \"name\": \"manage_users\",\n  \"description\": \"Allows creating, updating, and deleting users.\"\n}\n```"
+          }
+        },
+        {
+          "name": "Get All Permissions",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/permissions",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "permissions"]
+            },
+            "description": "Retrieves all permissions available in the system. Useful for understanding and managing access control policies."
+          }
+        },
+        {
+          "name": "Get Permission by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/permissions/{{permission_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "permissions", "{{permission_id}}"]
+            },
+            "description": "Fetches details of a specific permission using its unique ID. Provides permission name and description."
+          }
+        },
+        {
+          "name": "Update Permission",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"manage_candidates\",\n  \"description\": \"Updated description for managing candidates.\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/permissions/{{permission_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "permissions", "{{permission_id}}"]
+            },
+            "description": "Updates an existing permission’s name or description. Only Admin users can perform this action.\n\n#### Example Request Body\n```\n{\n  \"name\": \"manage_candidates\",\n  \"description\": \"Updated description for managing candidates.\"\n}\n```"
+          }
+        },
+        {
+          "name": "Delete Permission",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/permissions/{{permission_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "permissions", "{{permission_id}}"]
+            },
+            "description": "Deletes a permission from the system. Only Admin users can delete permissions. Deleting a permission may affect role assignments."
+          }
+        }
+      ]
+    },
+    {
+      "name": "RolePermissions",
+      "description": "Manage mappings between roles and permissions, defining what actions a role can perform in the system.",
+      "item": [
+        {
+          "name": "Create RolePermission Mapping",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"role_id\": \"{{role_id}}\",\n  \"permission_id\": \"{{permission_id}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/role-permissions",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "role-permissions"]
+            },
+            "description": "Links a permission to a specific role. Only Admin users can create mappings. This allows defining which actions each role is authorized to perform.\n\n#### Example Request Body\n```\n{\n  \"role_id\": \"{{role_id}}\",\n  \"permission_id\": \"{{permission_id}}\"\n}\n```"
+          }
+        },
+        {
+          "name": "Get All RolePermission Mappings",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/role-permissions",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "role-permissions"]
+            },
+            "description": "Retrieves all role-permission mappings in the system. Useful for understanding which roles have access to which permissions."
+          }
+        },
+        {
+          "name": "Get RolePermission Mapping by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/role-permissions/{{mapping_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "role-permissions", "{{mapping_id}}"]
+            },
+            "description": "Fetches a specific role-permission mapping using its unique ID. Provides details about which role and permission are linked."
+          }
+        },
+        {
+          "name": "Update RolePermission Mapping",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"role_id\": \"{{new_role_id}}\",\n  \"permission_id\": \"{{new_permission_id}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/role-permissions/{{mapping_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "role-permissions", "{{mapping_id}}"]
+            },
+            "description": "Updates an existing role-permission mapping to change the role or permission associated. Only Admin users can perform this action.\n\n#### Example Request Body\n```\n{\n  \"role_id\": \"{{new_role_id}}\",\n  \"permission_id\": \"{{new_permission_id}}\"\n}\n```"
+          }
+        },
+        {
+          "name": "Delete RolePermission Mapping",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/role-permissions/{{mapping_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "role-permissions", "{{mapping_id}}"]
+            },
+            "description": "Deletes a role-permission mapping from the system. Only Admin users can delete mappings. This may affect role access levels."
+          }
+        }
+      ]
+    }
+  ]
+}

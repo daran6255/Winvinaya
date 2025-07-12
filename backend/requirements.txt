@@ -1,0 +1,13 @@
+Flask
+Flask-SQLAlchemy
+Flask-Migrate
+Werkzeug
+requests
+flask-jwt-extended
+psycopg2-binary
+flask-cors 
+flask-migrate 
+python-dotenv
+pgeocode
+pandas
+PyJWT

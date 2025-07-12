@@ -1,0 +1,1964 @@
+{
+	"info": {
+		"_postman_id": "c9d68cfc-0ee2-4f1c-82fc-1c1e5af83a8b",
+		"name": "winvinaya",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16128290"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "auth/login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"info@winvinaya.com\",\r\n    \"password\": \"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/v1/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "auth/logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc1MTQzNjkwOCwianRpIjoiM2IxMjljYWQtYWFkZC00NzM2LWIwM2MtMmNlOWIyNDVmNWU1IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjgwNTM5MmU1LTJiNTItNDY2YS1iNTc2LWE4NzRhMDAzOWVmNiIsIm5iZiI6MTc1MTQzNjkwOCwiY3NyZiI6IjY0NGY0ZDQ1LWUxZTktNGRjYi04YzJiLTU1ZWYxMmNmM2Q1MiIsImV4cCI6MTc1MTQ2NTcwOH0.ZJwxP9XwCdAfaYG-B0nzMWtKJ_mzsxqJ-5SanDRHNvw",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/auth/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "auth/verify-token",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc1MTQzODk3MCwianRpIjoiYWQzNThjMWItMmQ1Ny00ODBhLWJiYzktYzZkMmZlZTUyNzFmIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjgwNTM5MmU1LTJiNTItNDY2YS1iNTc2LWE4NzRhMDAzOWVmNiIsIm5iZiI6MTc1MTQzODk3MCwiY3NyZiI6ImM3NzMwZmVhLTA5OWItNDI2ZC04MTlkLWEwMzk1NjBkN2ZmZSIsImV4cCI6MTc1MTQ2Nzc3MH0.aSTfgATDooB-XFn-BbExdGCxoJXYsTYbbQxEvM0-LuI",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/auth/verify-token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"verify-token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"danneta\",\r\n    \"email\": \"danneta@winvinaya.com\",\r\n    \"password\": \"12345\",\r\n    \"role_name\": \"trainer\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/v1/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list-all",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/v1/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list-by-userID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/v1/users/{{user_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-by-userID",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc1MTQzODk3MCwianRpIjoiYWQzNThjMWItMmQ1Ny00ODBhLWJiYzktYzZkMmZlZTUyNzFmIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjgwNTM5MmU1LTJiNTItNDY2YS1iNTc2LWE4NzRhMDAzOWVmNiIsIm5iZiI6MTc1MTQzODk3MCwiY3NyZiI6ImM3NzMwZmVhLTA5OWItNDI2ZC04MTlkLWEwMzk1NjBkN2ZmZSIsImV4cCI6MTc1MTQ2Nzc3MH0.aSTfgATDooB-XFn-BbExdGCxoJXYsTYbbQxEvM0-LuI",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"email\": \"john@company.com\",\r\n        \"id\": \"def6746e-1607-48d9-9d6a-1dda701a533b\",\r\n        \"is_active\": false,\r\n        \"role\": \"admin\",\r\n        \"username\": \"john_admin\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/v1/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "candidates",
+			"item": [
+				{
+					"name": "Create Candidate",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "John Doe",
+									"type": "text"
+								},
+								{
+									"key": "gender",
+									"value": "Male",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "john.doe@example3.com",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "9876543210",
+									"type": "text"
+								},
+								{
+									"key": "guardian_name",
+									"value": "Jane Doe",
+									"type": "text"
+								},
+								{
+									"key": "guardian_phone",
+									"value": "9123456780",
+									"type": "text"
+								},
+								{
+									"key": "pincode",
+									"value": "638009",
+									"type": "text"
+								},
+								{
+									"key": "degree",
+									"value": "B.Tech",
+									"type": "text"
+								},
+								{
+									"key": "branch",
+									"value": "Computer Science",
+									"type": "text"
+								},
+								{
+									"key": "disability_type",
+									"value": "Orthopedic",
+									"type": "text"
+								},
+								{
+									"key": "disability_percentage",
+									"value": "40",
+									"type": "text"
+								},
+								{
+									"key": "experience_type",
+									"value": "Fresher",
+									"type": "text"
+								},
+								{
+									"key": "skills",
+									"value": "[\"python\",\"powerbi\"]",
+									"type": "text"
+								},
+								{
+									"key": "disability_certificate",
+									"type": "file",
+									"src": "/C:/Users/daran/Downloads/5303984507.pdf"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/v1/candidates",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"candidates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Candidates",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/candidates",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"candidates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Candidate",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/candidates/{{candidate_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"candidates",
+								"{{candidate_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Candidate",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "John",
+									"type": "text"
+								},
+								{
+									"key": "gender",
+									"value": "Male",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "john.doe@example4.com",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "9876543210",
+									"type": "text"
+								},
+								{
+									"key": "guardian_name",
+									"value": "Jane Doe",
+									"type": "text"
+								},
+								{
+									"key": "guardian_phone",
+									"value": "9123456780",
+									"type": "text"
+								},
+								{
+									"key": "pincode",
+									"value": "638009",
+									"type": "text"
+								},
+								{
+									"key": "degree",
+									"value": "B.Tech",
+									"type": "text"
+								},
+								{
+									"key": "branch",
+									"value": "Computer Science",
+									"type": "text"
+								},
+								{
+									"key": "disability_type",
+									"value": "Orthopedic",
+									"type": "text"
+								},
+								{
+									"key": "disability_percentage",
+									"value": "40",
+									"type": "text"
+								},
+								{
+									"key": "experience_type",
+									"value": "Fresher",
+									"type": "text"
+								},
+								{
+									"key": "skills",
+									"value": "[\"python\",\"powerbi\"]",
+									"type": "text"
+								},
+								{
+									"key": "disability_certificate",
+									"type": "file",
+									"src": "/C:/Users/daran/Downloads/Power BI for Business Intelligence.pdf"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/v1/candidates/{{candidate_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"candidates",
+								"{{candidate_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Candidate",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/candidates/{{id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"candidates",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "candidate-profile",
+			"item": [
+				{
+					"name": "Create Candidate Profile",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"trained_by_winvinaya\": \"No\",\n    \"employment_status\": \"Unemployed\",\n    \"willing_for_training\": \"Yes\",\n    \"ready_to_relocate\": \"Yes\",\n    \"intrested_training\": \"Web Development\"\n}\n"
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/v1/candidate-profiles/{{candidate_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"candidate-profiles",
+								"{{candidate_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Candidate Profiles",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/candidate-profiles",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"candidate-profiles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Candidate Profile by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/candidate-profiles/{{profile_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"candidate-profiles",
+								"{{profile_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Candidate Profile",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"employment_status\": \"Unemployed\",\n    \"company_name\": null,\n    \"position\": null,\n    \"current_ctc\": null,\n    \"total_experience_years\": 0,\n    \"notice_period\": null\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/v1/candidate-profiles/{{profile_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"candidate-profiles",
+								"{{profile_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Candidate Profile",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/candidate-profiles/{{profile_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"candidate-profiles",
+								"{{profile_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "candidate-evaluation",
+			"item": [
+				{
+					"name": "Create Candidate Evaluation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"candidate_profile_id\": \"{{profile_id}}\",\n    \"skills_with_level\": [\n        {\"skill\": \"Excel\", \"level\": \"Intermediate\"},\n        {\"skill\": \"Python\", \"level\": \"Beginner\"}\n    ],\n    \"suitable_training\": \"Advanced Excel\",\n    \"comments\": \"Good communication skills.\",\n    \"remarks\": \"Needs follow up.\",\n    \"status\": \"Under Review\"\n}"
+						},
+						"url": {
+							"raw": "localhost:5000/api/v1/candidate-evaluations",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"candidate-evaluations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Candidate Evaluations",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/v1/candidate-evaluations",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"candidate-evaluations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Candidate Evaluation by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/v1/candidate-evaluations/{{evaluation_id}}",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"candidate-evaluations",
+								"{{evaluation_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Candidate Evaluation",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"skills_with_level\": [\n        {\"skill\": \"Excel\", \"level\": \"Advanced\"}\n    ],\n    \"suitable_training\": \"Power BI\",\n    \"comments\": \"Strong technical knowledge.\",\n    \"remarks\": \"Ready for deployment.\",\n    \"status\": \"Selected\"\n}"
+						},
+						"url": {
+							"raw": "localhost:5000/api/v1/candidate-evaluations/{{evaluation_id}}",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"candidate-evaluations",
+								"{{evaluation_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Candidate Evaluation",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/v1/candidate-evaluations/{{evaluation_id}}",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"candidate-evaluations",
+								"{{evaluation_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "training-batch",
+			"item": [
+				{
+					"name": "Create Training Batch",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"domain\": \"Software Testing\",\n    \"batch_name\": \"Batch A\",\n    \"batch_from\": \"01/24\",\n    \"batch_to\": \"04/24\"\n}"
+						},
+						"url": {
+							"raw": "localhost:5000/api/v1/training-batches",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"training-batches"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Training Batches",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/v1/training-batches",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"training-batches"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Training Batch by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/v1/training-batches/{{batch_id}}",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"training-batches",
+								"{{batch_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Training Batch",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"batch_name\": \"Batch A Updated\",\n    \"batch_to\": \"05/24\"\n}"
+						},
+						"url": {
+							"raw": "localhost:5000/api/v1/training-batches/{{batch_id}}",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"training-batches",
+								"{{batch_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Training Batch",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/v1/training-batches/{{batch_id}}",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"training-batches",
+								"{{batch_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "training_batch_allocation",
+			"item": [
+				{
+					"name": "Allocate Candidates to Batch (POST)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"batch_id\": \"{{batch_id}}\",\n  \"candidate_ids\": [\n    \"{{candidate_id_1}}\",\n    \"{{candidate_id_2}}\"\n  ]\n}"
+						},
+						"url": {
+							"raw": "localhost:5000/api/v1/training-batch-candidates",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"training-batch-candidates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Allocations (GET)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/v1/training-batch-candidates",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"training-batch-candidates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Allocation by ID (GET)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/v1/training-batch-candidates/{{allocation_id}}",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"training-batch-candidates",
+								"{{allocation_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Allocation (PUT)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"batch_id\": \"{{new_batch_id}}\",\n  \"candidate_id\": \"{{new_candidate_id}}\"\n}"
+						},
+						"url": {
+							"raw": "localhost:5000/api/v1/training-batch-candidates/{{allocation_id}}",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"training-batch-candidates",
+								"{{allocation_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Allocation (DELETE)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/v1/training-batch-candidates/{{allocation_id}}",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"training-batch-candidates",
+								"{{allocation_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "post-skill-analysis",
+			"item": [
+				{
+					"name": "Create Post-Training Skill Analysis",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "candidate_id",
+									"value": "{{candidate_id}}",
+									"type": "text"
+								},
+								{
+									"key": "skills_with_level",
+									"value": "{\"Python\":\"Advanced\",\"PostgreSQL\":\"Intermediate\",\"Flask\":\"Intermediate\" }",
+									"type": "text"
+								},
+								{
+									"key": "remarks",
+									"value": "Performed well in training.",
+									"type": "text"
+								},
+								{
+									"key": "resume",
+									"type": "file",
+									"src": "/C:/Users/daran/OneDrive/Documents/Dharani-personal/Dharanidaran_Resume(02-May-2025).pdf"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/api/v1/post-training-skills",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"post-training-skills"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Post-Training Skill Analyses",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/v1/post-training-skills",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"post-training-skills"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Post-Training Skill Analysis by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/v1/post-training-skills/{{analysis_id}}",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"post-training-skills",
+								"{{analysis_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Post-Training Skill Analysis",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "skills_with_level",
+									"value": "{\"Python\":\"Advanced\",\"PostgreSQL\":\"Intermediate\",\"Flask\":\"Intermediate\" }",
+									"type": "text"
+								},
+								{
+									"key": "remarks",
+									"value": "Improved significantly after training.",
+									"type": "text"
+								},
+								{
+									"key": "resume",
+									"value": "",
+									"type": "file"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/api/v1/post-training-skills/{{analysis_id}}",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"post-training-skills",
+								"{{analysis_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Post-Training Skill Analysis",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/v1/post-training-skills/{{analysis_id}}",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"post-training-skills",
+								"{{analysis_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "company",
+			"item": [
+				{
+					"name": "Create Company",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"company_name\": \"Acme Corp\",\n  \"type\": \"Hiring\",\n  \"contact_name\": \"Jane Doe\",\n  \"contact_number\": \"9876543210\",\n  \"contact_email\": \"jane.doe@acme.com\",\n  \"num_participants\": 3,\n  \"participants\": [\n    {\"name\": \"Alice\", \"email\": \"alice@acme.com\"},\n    {\"name\": \"Bob\", \"email\": \"bob@acme.com\"}\n  ]\n}"
+						},
+						"url": {
+							"raw": "localhost:5000/api/v1/company",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"company"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Companies",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/v1/company",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"company"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Company By ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/v1/company/{{company_id}}",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"company",
+								"{{company_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Company",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"contact_number\": \"9999999999\",\n  \"num_participants\": 5\n}"
+						},
+						"url": {
+							"raw": "localhost:5000/api/v1/company/{{company_id}}",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"company",
+								"{{company_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Company",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/v1/company/{{company_id}}",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"company",
+								"{{company_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "jobs",
+			"item": [
+				{
+					"name": "Create Job",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"company_id\": \"{{company_id}}\",\n    \"job_role\": \"Software Developer\",\n    \"skills\": [\"Python\", \"Flask\"],\n    \"experience_level\": \"Intermediate\",\n    \"education_qualification\": [\"B.Tech\", \"M.Sc\"],\n    \"num_openings\": 3,\n    \"location\": \"Bangalore\",\n    \"disability_preferred\": \"Hearing Impairment\",\n    \"approx_salary\": 75000.0,\n    \"roles_and_responsibilities\": \"Develop REST APIs, write unit tests.\",\n    \"description\": \"This is a job description for a software developer.\",\n    \"job_status\": \"Open\"\n}"
+						},
+						"url": {
+							"raw": "localhost:5000/api/v1/jobs",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"jobs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Jobs",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/v1/jobs",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"jobs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Job by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/v1/jobs/{{job_id}}",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"jobs",
+								"{{job_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Job",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"job_role\": \"Senior Software Developer\",\n    \"skills\": [\"Python\", \"Flask\", \"PostgreSQL\"],\n    \"experience_level\": \"Advanced\",\n    \"education_qualification\": [\"B.Tech\", \"M.Tech\"],\n    \"num_openings\": 2,\n    \"location\": \"Hyderabad\",\n    \"approx_salary\": 90000.0,\n    \"roles_and_responsibilities\": \"Lead development teams, design scalable architecture.\",\n    \"description\": \"Updated description for the senior role.\",\n    \"job_status\": \"closed\"\n}"
+						},
+						"url": {
+							"raw": "localhost:5000/api/v1/jobs/{{job_id}}",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"jobs",
+								"{{job_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Job",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/v1/jobs/{{job_id}}",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"jobs",
+								"{{job_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "job-mapping",
+			"item": [
+				{
+					"name": "Get Job-Candidate Matchings",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/v1/candidate-job-mapping/matchings",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"candidate-job-mapping",
+								"matchings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Candidate-Job Mapping",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"candidate_id\": \"{{candidate_id}}\",\n    \"job_id\": \"{{job_id}}\"\n}"
+						},
+						"url": {
+							"raw": "localhost:5000/api/v1/candidate-job-mapping",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"candidate-job-mapping"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Mappings",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/v1/candidate-job-mapping",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"candidate-job-mapping"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Mapping by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/v1/candidate-job-mapping/{{mapping_id}}",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"candidate-job-mapping",
+								"{{mapping_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Mapping",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"mapping_status\": \"Selected\"\n}"
+						},
+						"url": {
+							"raw": "localhost:5000/api/v1/candidate-job-mapping/{{mapping_id}}",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"candidate-job-mapping",
+								"{{mapping_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Mapping",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/v1/candidate-job-mapping/{{mapping_id}}",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"candidate-job-mapping",
+								"{{mapping_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "interview-tracking",
+			"item": [
+				{
+					"name": "Create Interview Status",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"mapping_id\": \"{{mapping_id}}\",\n    \"round_name\": \"Technical\",\n    \"round_number\": \"1\",\n    \"interview_status\": \"Scheduled\",\n    \"interview_date\": \"2025-07-10T15:00:00\",\n    \"interviewer_name\": \"Alice Smith\",\n    \"remarks\": \"Scheduled for tech round\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/v1/candidate-interview-status",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"candidate-interview-status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Interview Statuses",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/candidate-interview-status",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"candidate-interview-status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Interview Status By ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/candidate-interview-status/{{status_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"candidate-interview-status",
+								"{{status_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Interview Status",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"round_name\": \"Technical Updated\",\n    \"round_number\": \"2\",\n    \"interview_status\": \"Attended\",\n    \"interview_date\": \"2025-07-12T10:30:00\",\n    \"interviewer_name\": \"Bob Johnson\",\n    \"remarks\": \"Candidate attended technical round.\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/v1/candidate-interview-status/{{status_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"candidate-interview-status",
+								"{{status_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Interview Status",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer <your_jwt_token>",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/candidate-interview-status/<status_id>",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"candidate-interview-status",
+								"<status_id>"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

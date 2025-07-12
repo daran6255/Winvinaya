@@ -1,0 +1,128 @@
+{
+  "info": {
+    "name": "Candidate APIs",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+
+    {
+      "name": "Create Candidate",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            { "key": "name", "value": "John Doe", "type": "text" },
+            { "key": "gender", "value": "Male", "type": "text" },
+            { "key": "email", "value": "john.doe@example.com", "type": "text" },
+            { "key": "phone", "value": "9876543210", "type": "text" },
+            { "key": "guardian_name", "value": "Jane Doe", "type": "text" },
+            { "key": "guardian_phone", "value": "9123456780", "type": "text" },
+            { "key": "pincode", "value": "600001", "type": "text" },
+            { "key": "degree", "value": "B.Tech", "type": "text" },
+            { "key": "branch", "value": "Computer Science", "type": "text" },
+            { "key": "disability_type", "value": "Orthopedic", "type": "text" },
+            { "key": "disability_percentage", "value": "40", "type": "text" },
+            { "key": "experience_type", "value": "Fresher", "type": "text" },
+            {
+              "key": "skills",
+              "value": "[\"Python\",\"SQL\"]",
+              "type": "text"
+            },
+            {
+              "key": "disability_certificate",
+              "type": "file",
+              "src": "/path/to/sample_certificate.pdf"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/v1/candidates",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "v1", "candidates"]
+        }
+      }
+    },
+
+    {
+      "name": "Get All Candidates",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/v1/candidates",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "v1", "candidates"]
+        }
+      }
+    },
+
+    {
+      "name": "Get Single Candidate",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/v1/candidates/{{candidate_id}}",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "v1", "candidates", "{{candidate_id}}"]
+        }
+      }
+    },
+
+    {
+      "name": "Update Candidate",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"phone\": \"9999999999\",\n  \"degree\": \"M.Tech\",\n  \"disability_percentage\": 45\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/v1/candidates/{{candidate_id}}",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "v1", "candidates", "{{candidate_id}}"]
+        }
+      }
+    },
+
+    {
+      "name": "Delete Candidate",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:5000/api/v1/candidates/{{candidate_id}}",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "v1", "candidates", "{{candidate_id}}"]
+        }
+      }
+    }
+  ]
+}

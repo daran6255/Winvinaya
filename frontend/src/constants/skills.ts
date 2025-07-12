@@ -1,0 +1,20 @@
+export const skills = [
+	'Java', 'Python', 'C++', 'JavaScript', 'HTML', 'AI', 'CSS', 'React', 'Angular', 'Vue.js',
+	'Node.js', 'Express', 'Django', 'Flask', 'Android', 'iOS', 'React Native',
+	'MySQL', 'PostgreSQL', 'MongoDB', 'AWS', 'Azure', 'Google Cloud', 'Docker',
+	'Kubernetes', 'Jenkins', 'Ansible', 'Network Security', 'Penetration Testing',
+	'Firewalls', 'Machine Learning', 'Deep Learning', 'NLP', 'Data Analysis', 'R',
+	'TensorFlow', 'CCNA', 'TCP/IP', 'DNS', 'DHCP', 'VPN', 'Linux', 'Windows', 'macOS',
+	'Blockchain', 'IoT', 'VMware', 'Hyper-V', 'VirtualBox', 'Git', 'GitHub', 'GitLab',
+	'Agile', 'Scrum', 'Retail Banking', 'Corporate Banking', 'Investment Banking',
+	'Financial Analysis', 'Risk Management', 'Compliance', 'Fraud Detection',
+	'Wealth Management', 'Financial Planning', 'Insurance Underwriting', 'Claims',
+	'Loan Management', 'Financial Modeling', 'Forecasting', 'Trading', 'Stocks', 'Bonds',
+	'Derivatives', 'Digital Payments', 'Blockchain', 'Robo-Advisors', 'Corporate Finance',
+	'Mergers and Acquisitions', 'Financial Statement Analysis', 'Treasury Management',
+	'Credit Analysis', 'Asset Management', 'Financial Advisory', 'Investment Strategies',
+	'Accounting', 'GAAP', 'IFRS', 'Budgeting', 'Taxation', 'Cash Flow Management',
+	'Debt Financing', 'Equity Financing', 'Portfolio Management', 'Private Equity',
+	'Venture Capital', 'Excel', 'Power BI', 'Power Apps', 'QuickBooks', 'SAP', 'Oracle', 'Business Valuation',
+	'Financial Due Diligence', 'Debt Restructuring'
+];
