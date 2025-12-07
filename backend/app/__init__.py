@@ -2,7 +2,6 @@ from flask import Flask
 from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
-from flask_socketio import SocketIO
 from datetime import timedelta
 import os
 from dotenv import load_dotenv
@@ -53,7 +52,6 @@ os.makedirs(RESUME_FOLDER, exist_ok=True)
 os.makedirs(DISABILITY_FOLDER, exist_ok=True)
 
 jwt = JWTManager()
-socketio = SocketIO()
 
 TOKEN_BLACKLIST = set()
 
@@ -77,13 +75,11 @@ def create_app():
     app.config['JWT_SECRET_KEY'] = os.environ.get("SECRET_KEY", "supersecretkey")
     app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(hours=8)
 
-    socketio.init_app(app, cors_allowed_origins="*")
     CORS(app, origins="*", supports_credentials=True)
 
     db.init_app(app)
     Migrate(app, db)
     jwt.init_app(app)
-    socketio.init_app(app)  # <-- Init SocketIO with app
 
     # Register blueprints
     app.register_blueprint(auth_bp)
