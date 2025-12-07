@@ -2,6 +2,7 @@ from flask import Flask
 from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
+from flask_socketio import SocketIO
 from datetime import timedelta
 import os
 from dotenv import load_dotenv
@@ -24,6 +25,7 @@ from .models.jobmela import JobMela
 from .models.jobs import Job
 from .models.training_batch_candidates import TrainingBatchCandidate
 from .models.training_batches import TrainingBatch
+from .models.activity_logs import ActivityLog
 
 from .api.auth import auth_bp
 from .api.users import users_bp
@@ -39,7 +41,7 @@ from .api.job import jobs_bp
 from .api.job_mapping import candidate_job_mapping_bp
 from .api.candidate_interview_status import candidate_interview_status_bp
 from .api.jobmela import jobmela_bp
-
+from .api.activity_log import activity_bp
 
 load_dotenv()
 
@@ -47,14 +49,12 @@ UPLOAD_FOLDER = os.path.join(os.getcwd(), 'temp')
 RESUME_FOLDER = os.path.join(UPLOAD_FOLDER, 'resume')
 DISABILITY_FOLDER = os.path.join(UPLOAD_FOLDER, 'disability_certificate')
 
-# Ensure folders exist
 os.makedirs(RESUME_FOLDER, exist_ok=True)
 os.makedirs(DISABILITY_FOLDER, exist_ok=True)
 
 jwt = JWTManager()
+socketio = SocketIO()
 
-# Declare a simple token blacklist in memory
-# In production replace this with Redis or DB table
 TOKEN_BLACKLIST = set()
 
 @jwt.token_in_blocklist_loader
@@ -67,28 +67,23 @@ def create_app():
     """Create and configure the Flask app."""
     app = Flask(__name__)
 
-    # Load config
     app.config.from_object('app.config.Config')
     app.config['DEBUG'] = True
 
-    # Upload folders config
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
     app.config['RESUME_FOLDER'] = RESUME_FOLDER
     app.config['DISABILITY_FOLDER'] = DISABILITY_FOLDER
 
-    # JWT config
     app.config['JWT_SECRET_KEY'] = os.environ.get("SECRET_KEY", "supersecretkey")
     app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(hours=8)
 
-    # CORS
+    socketio.init_app(app, cors_allowed_origins="*")
     CORS(app, origins="*", supports_credentials=True)
 
-    # Initialize DB and Migrations
     db.init_app(app)
-    migrate = Migrate(app, db)
-
-    # Initialize JWT
+    Migrate(app, db)
     jwt.init_app(app)
+    socketio.init_app(app)  # <-- Init SocketIO with app
 
     # Register blueprints
     app.register_blueprint(auth_bp)
@@ -105,9 +100,13 @@ def create_app():
     app.register_blueprint(candidate_job_mapping_bp)
     app.register_blueprint(candidate_interview_status_bp)
     app.register_blueprint(jobmela_bp)
-    
-    # Register CLI commands
+    app.register_blueprint(activity_bp)  # <-- Register new activity log API
+
+    # CLI commands
     from seed_admin import seed_admin
     app.cli.add_command(seed_admin)
+    
+    from seed_admin_user import seed_dharanidaran_admin
+    app.cli.add_command(seed_dharanidaran_admin)
 
     return app

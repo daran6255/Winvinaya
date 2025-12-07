@@ -17,7 +17,7 @@ candidate_profiles_bp = Blueprint("candidate_profiles_bp", __name__, url_prefix=
 def create_candidate_profile(id):
     try:
         data = request.get_json(force=True)
-
+        print(data)
         required_fields = ["trained_by_winvinaya", "employment_status"]
         missing = [f for f in required_fields if f not in data]
         if missing:
@@ -73,7 +73,6 @@ def create_candidate_profile(id):
             "id": profile.id,
             "candidate_id": candidate.candidate_id,
             "candidate_name": candidate.name,
-            "disability_certificate_path": candidate.disability_certificate_path,
             "trained_by_winvinaya": profile.trained_by_winvinaya,
             "training_domain": profile.training_domain,
             "training_from": profile.training_from,
@@ -221,6 +220,7 @@ def update_candidate_profile(profile_id):
             }), 404
 
         data = request.get_json()
+        print(data)
 
         for key, value in data.items():
             if hasattr(profile, key):

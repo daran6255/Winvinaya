@@ -8,9 +8,11 @@ import json
 
 from app.database import db
 from app.models.candidate_registration import CandidateRegistration
+from app.models.candidate_profile import CandidateProfile
 from app.helpers.utils import get_location_by_pincode
 from app.helpers.auth_utils import role_required
 from app.helpers.utils import get_user_info
+from app.helpers.activity_logger import log_activity
 
 candidates_bp = Blueprint("candidates_bp", __name__, url_prefix="/api/v1/candidates")
 
@@ -129,11 +131,21 @@ def create_candidate():
 def get_all_candidates():
     try:
         candidates = CandidateRegistration.query.all()
+        candidate_ids = [c.id for c in candidates]  # Collect all candidate IDs
+
+        # Fetch all profiles for these candidate IDs
+        profiles = CandidateProfile.query.with_entities(
+            CandidateProfile.candidate_id,
+            CandidateProfile.id
+        ).filter(CandidateProfile.candidate_id.in_(candidate_ids)).all()
+
+        # Build a map of candidate_id -> profile_id
+        profile_map = {p.candidate_id: p.id for p in profiles}
+
         result = []
         for c in candidates:
-            updated_by_info = None
-            if c.updated_by:
-                updated_by_info = get_user_info(c.updated_by)
+            updated_by_info = get_user_info(c.updated_by) if c.updated_by else None
+            profile_id = profile_map.get(c.id)  # Now correctly mapped
 
             result.append({
                 "id": c.id,
@@ -158,8 +170,9 @@ def get_all_candidates():
                 "updated_by": updated_by_info,
                 "created_at": c.created_at,
                 "updated_at": c.updated_at,
+                "profile_id": profile_id  # ✅ Correctly appended
             })
-
+            
         return jsonify({
             "status": "success",
             "data": result
@@ -181,6 +194,10 @@ def get_candidate(id):
                 "status": "error",
                 "message": "Candidate not found."
             }), 404
+
+        # 🔍 Get associated profile
+        profile = CandidateProfile.query.filter_by(candidate_id=candidate.id).first()
+        profile_id = profile.id if profile else None
 
         updated_by_info = None
         if candidate.updated_by:
@@ -209,6 +226,7 @@ def get_candidate(id):
             "updated_by": updated_by_info,
             "created_at": candidate.created_at,
             "updated_at": candidate.updated_at,
+            "profile_id": profile_id
         }
 
         return jsonify({
@@ -222,95 +240,118 @@ def get_candidate(id):
             "message": str(e)
         }), 500
 
-
 @candidates_bp.route("/<id>", methods=["PUT"])
 @jwt_required()
 @role_required(["admin", "sourcing"])
 def update_candidate(id):
     try:
         current_user_id = get_jwt_identity()
+        current_user_role = get_user_info(current_user_id)
 
-        # support both JSON body + multipart form-data
-        if request.content_type.startswith("multipart/form-data"):
-            data = request.form.to_dict()
-        else:
-            data = request.get_json() or {}
-
+        data = request.form.to_dict() if request.content_type.startswith("multipart/form-data") else request.get_json() or {}
         candidate = CandidateRegistration.query.filter_by(id=id).first()
 
         if not candidate:
-            return jsonify({
-                "status": "error",
-                "message": "Candidate not found."
-            }), 404
+            return jsonify({"status": "error", "message": "Candidate not found."}), 404
 
-        # update fields from form/json data
+        changed_fields = {}
+
+        if "pincode" in data:
+            location = get_location_by_pincode(data["pincode"])
+            if not location:
+                return jsonify({"status": "error", "message": f"Invalid or unknown pincode: {data['pincode']}"}), 400
+            if candidate.pincode != data["pincode"]:
+                changed_fields["pincode"] = {"old": candidate.pincode, "new": data["pincode"]}
+            candidate.city = location["city"]
+            candidate.district = location["district"]
+            candidate.state = location["state"]
+            candidate.pincode = data["pincode"]
+
         for key, value in data.items():
-            if hasattr(candidate, key):
-                setattr(candidate, key, value)
+            if key not in ["city", "district", "state", "pincode", "skills"]:
+                if hasattr(candidate, key):
+                    old_value = getattr(candidate, key)
+                    if old_value != value:
+                        changed_fields[key] = {"old": old_value, "new": value}
+                        setattr(candidate, key, value)
 
-        # handle disability_certificate file upload
+        if "skills" in data:
+            try:
+                new_skills = json.loads(data["skills"]) if isinstance(data["skills"], str) else data["skills"]
+                if candidate.skills != new_skills:
+                    changed_fields["skills"] = {"old": candidate.skills, "new": new_skills}
+                    candidate.skills = new_skills
+            except json.JSONDecodeError:
+                return jsonify({"status": "error", "message": "Invalid JSON format for skills."}), 400
+
         if "disability_certificate" in request.files:
             file = request.files["disability_certificate"]
-            if file and file.filename != "":
-                # delete old file if it exists
+            if file and file.filename:
                 if candidate.disability_certificate_path and os.path.exists(candidate.disability_certificate_path):
                     os.remove(candidate.disability_certificate_path)
 
                 now = datetime.utcnow()
                 month_year = now.strftime("%m%Y")
-                folder_path = os.path.join(
-                    "temp",
-                    "disability_certificate",
-                    month_year
-                )
+                folder_path = os.path.join("uploads", "disability_certificate", month_year)
                 os.makedirs(folder_path, exist_ok=True)
 
                 ext = os.path.splitext(file.filename)[-1]
-                file_name = f"{candidate.name.replace(' ', '_')}_disability_certificate{ext}"
+                file_name = f"{uuid.uuid4().hex}_disability_certificate{ext}"
                 save_path = os.path.join(folder_path, secure_filename(file_name))
                 file.save(save_path)
 
+                changed_fields["disability_certificate_path"] = {
+                    "old": candidate.disability_certificate_path,
+                    "new": save_path
+                }
                 candidate.disability_certificate_path = save_path
 
         candidate.updated_by = current_user_id
         candidate.updated_at = datetime.utcnow()
         db.session.commit()
 
-        return jsonify({
-            "status": "success",
-            "message": "Candidate updated successfully."
-        }), 200
+        log_activity(
+            table_name="candidate_registration",
+            record_id=candidate.id,
+            action="PUT",
+            user_id=current_user_id,
+            role=current_user_role,
+            changed_fields=changed_fields
+        )
+
+        return jsonify({"status": "success", "message": "Candidate updated successfully."}), 200
 
     except Exception as e:
-        return jsonify({
-            "status": "error",
-            "message": str(e)
-        }), 500
+        db.session.rollback()
+        return jsonify({"status": "error", "message": str(e)}), 500
 
 
+# ---------------- DELETE CANDIDATE ----------------
 @candidates_bp.route("/<id>", methods=["DELETE"])
 @jwt_required()
-@role_required(["admin", "sourcing"])
+@role_required(["admin"])
 def delete_candidate(id):
     try:
+        current_user_id = get_jwt_identity()
+        current_user_role = get_user_info(current_user_id)
+
         candidate = CandidateRegistration.query.filter_by(id=id).first()
         if not candidate:
-            return jsonify({
-                "status": "error",
-                "message": "Candidate not found."
-            }), 404
+            return jsonify({"status": "error", "message": "Candidate not found."}), 404
 
         db.session.delete(candidate)
         db.session.commit()
 
-        return jsonify({
-            "status": "success",
-            "message": "Candidate deleted successfully."
-        }), 200
+        log_activity(
+            table_name="candidate_registration",
+            record_id=id,
+            action="DELETE",
+            user_id=current_user_id,
+            role=current_user_role
+        )
+
+        return jsonify({"status": "success", "message": "Candidate deleted successfully."}), 200
 
     except Exception as e:
-        return jsonify({
-            "status": "error",
-            "message": str(e)
-        }), 500
+        db.session.rollback()
+        return jsonify({"status": "error", "message": str(e)}), 500

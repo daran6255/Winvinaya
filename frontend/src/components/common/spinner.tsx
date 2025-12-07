@@ -1,22 +1,27 @@
-import React from 'react';
-import { Flex, Spinner } from '@chakra-ui/react';
+// src/components/common/Spinner.tsx
+import React from "react";
+import CircularProgress from "@mui/material/CircularProgress";
 
-const CenteredSpinner: React.FC = () => {
-    return (
-        <Flex
-            justifyContent="center"
-            alignItems="center"
-            height="100vh"
-        >
-            <Spinner
-                thickness="4px"
-                speed="0.65s"
-                emptyColor="gray.200"
-                color="blue.500"
-                size="xl"
-            />
-        </Flex>
-    );
+const GradientCircularProgress: React.FC = () => {
+  return (
+    <React.Fragment>
+      <svg width={0} height={0}>
+        <defs>
+          <linearGradient id="my_gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#e01cd5" />
+            <stop offset="100%" stopColor="#1CB5E0" />
+          </linearGradient>
+        </defs>
+      </svg>
+      <CircularProgress
+        sx={{
+          "& .MuiCircularProgress-circle": {
+            stroke: "url(#my_gradient)",
+          },
+        }}
+      />
+    </React.Fragment>
+  );
 };
 
-export default CenteredSpinner;
+export default GradientCircularProgress;

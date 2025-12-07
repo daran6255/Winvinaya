@@ -1,132 +1,169 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { AxiosError } from 'axios';
+'use client';
+
+import { useEffect } from 'react';
 import {
   Box,
+  Typography,
+  TextField,
   Button,
-  FormControl,
-  FormLabel,
-  Input,
-  VStack,
-  Heading,
-  Text,
+  FormControlLabel,
+  Checkbox,
   Link,
-  useColorModeValue,
+  Alert,
+  Stack,
   useTheme,
-} from '@chakra-ui/react';
-import { login } from '../helpers/service';
-import { LoginData, LoginResponse } from '../helpers/model';
-import useCustomToast from '../hooks/useCustomToast';
+  CircularProgress,
+  Grid,
+} from '@mui/material';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import type { LoginRequest } from '../models/auth';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { login } from '../store/slices/authSlice';
 
-const Login: React.FC = () => {
-  const [formData, setFormData] = useState<LoginData>({
-    email: '',
-    password: '',
+export default function LoginPage() {
+  const theme = useTheme();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const { status, error, user } = useAppSelector((state) => state.auth);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginRequest>({
+    defaultValues: { email: '', password: '' },
   });
 
-  const [isLoading, setIsLoading] = useState(false);
-  const showToast = useCustomToast();
-  const navigate = useNavigate();
-  const theme = useTheme();
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+  const onSubmit = (data: LoginRequest) => {
+    dispatch(login(data));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-
-    try {
-      const response: LoginResponse = await login(formData.email, formData.password);
-
-    if (response.status === 'success') {
-      showToast('Login Successful', 'You have successfully logged in.', 'success');
-      localStorage.setItem("user", JSON.stringify(response.result)); // Save user data
-      navigate("/dashboard", { state: { user: response.result } }); // Redirect and pass user
-    } else {
-      showToast(
-        'Login Failed',
-        typeof response.result === 'string' ? response.result : 'Login failed',
-        'error'
-      );
+  // Navigate on successful login
+  useEffect(() => {
+    if (status === 'succeeded' && user) {
+      navigate('/dashboard', { state: { user } });
     }
-
-    } catch (error) {
-      const err = error as AxiosError<{ message?: string }>;
-      const message = err.response?.data?.message || err.message || 'An unexpected error occurred during login.';
-      showToast('Login Error', message, 'error');
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  }, [status, user, navigate]);
 
   return (
-    <Box
-      maxW="md"
-      mx="auto"
-      mt={12}
-      p={8}
-      borderRadius="xl"
-      boxShadow="lg"
-      bg={useColorModeValue('white', 'gray.500')}
+    <Grid
+      container
+      sx={{
+        minHeight: '100vh',
+        backgroundColor: theme.palette.background.default,
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
     >
-      <Heading
-        as="h2"
-        size="xl"
-        textAlign="center"
-        mb={6}
-        color={theme.colors.ui.main}
-      >
-        Sign In
-      </Heading>
-      <form onSubmit={handleSubmit}>
-        <VStack spacing={5}>
-          <FormControl isRequired>
-            <FormLabel>Email address</FormLabel>
-            <Input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="you@example.com"
-              focusBorderColor={theme.colors.ui.accent}
-            />
-          </FormControl>
+      <Grid item xs={11} sm={8} md={4}>
+        <Box
+          sx={{
+            p: 4,
+            borderRadius: 2,
+            boxShadow: theme.customShadows.section,
+            border: `1px solid ${theme.palette.divider}`,
+            backgroundColor: theme.palette.background.paper,
+          }}
+        >
+          <Typography variant="h4" fontWeight={700} mb={2}>
+            Sign In
+          </Typography>
+          <Typography variant="body2" color="text.secondary" mb={3}>
+            Enter your email and password to access your account.
+          </Typography>
 
-          <FormControl isRequired>
-            <FormLabel>Password</FormLabel>
-            <Input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="Enter your password"
-              focusBorderColor={theme.colors.ui.accent}
-            />
-          </FormControl>
+          {error && (
+            <Alert severity="error" sx={{ mb: 3 }}>
+              {error}
+            </Alert>
+          )}
 
-          <Button
-            type="submit"
-            variant="primary"
-            width="full"
-            isLoading={isLoading}
-            loadingText="Logging in..."
-            borderRadius="xl"
-          >
-            Log In
-          </Button>
-        </VStack>
-      </form>
-      <Text mt={6} textAlign="center" color="gray.600">
-        Don’t have an account?{' '}
-        <Link href="/signup" color={theme.colors.ui.secondary} fontWeight="medium">
-          Sign up
-        </Link>
-      </Text>
-    </Box>
+          <form onSubmit={handleSubmit(onSubmit)} noValidate>
+            <Stack spacing={3}>
+              <TextField
+                {...register('email', {
+                  required: 'Email is required',
+                  pattern: {
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                    message: 'Invalid email format',
+                  },
+                })}
+                label="Email Address"
+                fullWidth
+                error={!!errors.email}
+                helperText={errors.email?.message}
+              />
+
+              <TextField
+                {...register('password', {
+                  required: 'Password is required',
+                  minLength: {
+                    value: 5,
+                    message: 'Minimum 6 characters',
+                  },
+                })}
+                label="Password"
+                type="password"
+                fullWidth
+                error={!!errors.password}
+                helperText={errors.password?.message}
+              />
+
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <FormControlLabel
+                  control={<Checkbox size="small" />}
+                  label={
+                    <Typography variant="body2" color="text.secondary">
+                      Remember me
+                    </Typography>
+                  }
+                />
+                <Link href="#" variant="body2" underline="hover">
+                  Forgot password?
+                </Link>
+              </Stack>
+
+              <Button
+                type="submit"
+                color="primary"
+                variant="contained"
+                size="large"
+                disabled={status === 'loading'}
+                sx={{
+                  py: 1.5,
+                  fontWeight: 600,
+                  boxShadow: theme.customShadows.button,
+                }}
+              >
+                {status === 'loading' ? (
+                  <CircularProgress color="secondary" size={24} />
+                ) : (
+                  'Sign In'
+                )}
+              </Button>
+            </Stack>
+          </form>
+        </Box>
+
+        <Box sx={{ mt: 4, textAlign: 'center' }}>
+          <Typography variant="caption" color="text.secondary">
+            © 2024 SaasAble ·{' '}
+            <Link href="#" underline="hover">
+              Privacy Policy
+            </Link>{' '}
+            ·{' '}
+            <Link href="#" underline="hover">
+              Terms & Conditions
+            </Link>
+          </Typography>
+        </Box>
+      </Grid>
+    </Grid>
   );
-};
-
-export default Login;
+}

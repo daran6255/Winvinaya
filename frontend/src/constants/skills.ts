@@ -10,7 +10,7 @@ export const skills = [
 	'Financial Analysis', 'Risk Management', 'Compliance', 'Fraud Detection',
 	'Wealth Management', 'Financial Planning', 'Insurance Underwriting', 'Claims',
 	'Loan Management', 'Financial Modeling', 'Forecasting', 'Trading', 'Stocks', 'Bonds',
-	'Derivatives', 'Digital Payments', 'Blockchain', 'Robo-Advisors', 'Corporate Finance',
+	'Derivatives', 'Digital Payments', 'Robo-Advisors', 'Corporate Finance',
 	'Mergers and Acquisitions', 'Financial Statement Analysis', 'Treasury Management',
 	'Credit Analysis', 'Asset Management', 'Financial Advisory', 'Investment Strategies',
 	'Accounting', 'GAAP', 'IFRS', 'Budgeting', 'Taxation', 'Cash Flow Management',

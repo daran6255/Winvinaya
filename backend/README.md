@@ -71,6 +71,7 @@ backend/
    flask db upgrade # Apply migration to create tables
 
    flask seed-admin
+   flask seed-dharanidaran-admin
    
    # Detect changes and generate migration script
    flask db migrate -m "Add created_by and updated_by to post_training_skill_analysis"
@@ -82,7 +83,7 @@ backend/
    flask db migrate -m "Add updated_by to interview"
    flask db migrate -m "Add updated_by to jobmela"
    flask db migrate -m "Add updated_by to jobrole added in the candidate evaluation"
-
+   flask db migrate -m "Add candidate updates logs table"
    # Apply migration to the database
    flask db upgrade
    -----------------------------------------------------------------------------------------------

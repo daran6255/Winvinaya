@@ -85,10 +85,6 @@ def create_user():
 @users_bp.route("", methods=["GET"])
 @jwt_required()
 def get_all_users():
-    check = admin_required()
-    if check:
-        return check
-
     try:
         users = User.query.all()
         result = []
@@ -104,7 +100,9 @@ def get_all_users():
                 "username": user.username,
                 "email": user.email,
                 "is_active": user.is_active,
-                "role": role_name
+                "role": role_name,
+                "created_at": user.created_at,
+                "updated_at": user.updated_at
             })
 
         return jsonify({
@@ -144,7 +142,9 @@ def get_user(user_id):
             "username": user.username,
             "email": user.email,
             "is_active": user.is_active,
-            "role": role_name
+            "role": role_name,
+            "created_at": user.created_at,
+            "updated_at": user.updated_at
         }
 
         return jsonify({
